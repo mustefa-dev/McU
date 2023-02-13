@@ -1,7 +1,5 @@
-using McU.Data;
+
 using McU.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace McU.Data
 {
@@ -16,29 +14,33 @@ namespace McU.Data
 
         public async Task<(string? data, bool success, string? message)> Register(User user, string password)
         {
-            user.Password = password;
-
-            await _context.Users.AddAsync(user);
+            var existingUser = await _context.User!.SingleOrDefaultAsync(x => x.Username == user.Username);
+            if (existingUser != null)
+            {
+                return (null, false, "Username already exists");
+            }
+            
+            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
+            await _context.User!.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            return (user.Id.ToString(), true, null);
+            return (user.Username, true, null);
         }
 
         public async Task<(string? data, bool success, string? message)> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-
+            var user = await _context.User!.SingleOrDefaultAsync(x => x.Username == username);
             if (user == null)
             {
-                return (null, false, "User not found.");
+                return (null, false, "User not found");
             }
 
-            if (user.Password != password)
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
-                return (null, false, "Wrong password.");
+                return (null, false, "Incorrect password");
             }
 
-            return (user.Id.ToString(), true, null);
+            return (user.Username, true, null);
         }
     }
 }

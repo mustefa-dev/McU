@@ -1,7 +1,5 @@
 using McU.Models;
-using McuApi.NET_7.Models;
-
-namespace McuApi.NET_7.Dtos;
+namespace McU.Dtos;
 
 public  class AddCharacterDto
 {
@@ -9,8 +7,8 @@ public  class AddCharacterDto
         GenerateRandomAttribute = generateRandomAttribute;
     }
 
-    public string Name { get; set; } 
-        public int HitPoints { get; set; } 
+    public string Name { get; set; } = null!;
+    public int HitPoints { get; set; } 
         public int Strength { get; set; } 
         public int Defense { get; set; } 
         public int Intelligence { get; set; } 

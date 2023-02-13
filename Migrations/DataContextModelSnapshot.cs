@@ -77,7 +77,7 @@ namespace McU.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("McU.Models.Character", b =>

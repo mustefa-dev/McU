@@ -6,36 +6,33 @@ namespace McU.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AuthController : ControllerBase
-{
+public class AuthController : ControllerBase{
     private readonly IAuthRepository _authRepo;
 
-    public AuthController(IAuthRepository authRepo)
-    {
+    public AuthController(IAuthRepository authRepo) {
         _authRepo = authRepo;
     }
 
-    [HttpPost("Register")]
-    public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDto request)
-    {
-        var response = await _authRepo.Register(
-            new User { Username = request.Username }, request.Password
-        );
-        if(!response.success)
-        {
-            return BadRequest(response);
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserLoginDto userLoginDto) {
+        var (data, success, message) =
+            await _authRepo.Register(new User { Username = userLoginDto.Username }, userLoginDto.Password);
+
+        if (success) {
+            return Ok(data);
         }
-        return Ok(response);
+
+        return BadRequest(message);
     }
 
+
     [HttpPost("Login")]
-    public async Task<ActionResult<ServiceResponse<int>>> Login(UserLoginDto request)
-    {
+    public async Task<ActionResult<string>> Login(UserLoginDto request) {
         var response = await _authRepo.Login(request.Username, request.Password);
-        if(!response.success)
-        {
-            return BadRequest(response);
+        if (!response.success) {
+            return BadRequest(new { response.message });
         }
-        return Ok(response);
+
+        return Ok(response.data);
     }
 }
