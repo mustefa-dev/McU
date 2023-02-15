@@ -1,12 +1,13 @@
 using McU.Dtos;
 using McU.Services.CharacterService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace McU.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class CharacterController : ControllerBase{
+public class CharacterController : ControllerBase {
     private readonly ICharacterService _characterService;
 
     public CharacterController(ICharacterService characterService) {

@@ -21,6 +21,7 @@ namespace McU.Services.CharacterService{
             return serviceResponse;
         }
 
+
         public async Task<ServiceResponse<GetCharacterDto?>> GetCharacterById(int id) {
             var serviceResponse = new ServiceResponse<GetCharacterDto?>();
             var dCharacter = await _context.Characters.FirstOrDefaultAsync(x => x.Id == id);
@@ -37,8 +38,8 @@ namespace McU.Services.CharacterService{
         public async Task<(string? data, bool success, string? message)> AddCharacters(AddCharacterDto newCharacter) {
             var dCharacter = _mapper.Map<Character>(newCharacter);
             await _context.Characters.AddAsync(dCharacter);
-            await _context.SaveChangesAsync();
-            var data = _mapper.Map<List<GetCharacterDto>>(_context.Characters);
+            await _context.SaveChangesAsync(); 
+            _mapper.Map<List<GetCharacterDto>>(_context.Characters);
             bool success = false;
             return (null, success, null);
         }
