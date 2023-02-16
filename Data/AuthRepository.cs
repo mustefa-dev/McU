@@ -38,13 +38,13 @@ namespace McU.Data{
                 return (null, false, "Incorrect password");
             }
 
-            var token = CreateToken(user, false);
+            var token = GenerateJwtToken(user);
 
             return (token, true, null);
         }
 
-        [Obsolete("Obsolete")]
-        public string CreateToken(User user, bool rememberMe) {
+        public string GenerateJwtToken(User user)
+        {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -52,7 +52,8 @@ namespace McU.Data{
                 new Claim(ClaimTypes.Role, user.Role)
             };
             var key = Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!);
-            if (key.Length * 8 < 128) {
+            if (key.Length * 8 < 128)
+            {
                 var newKey = new byte[16];
                 Array.Copy(key, newKey, Math.Min(key.Length, newKey.Length));
                 key = newKey;
@@ -62,7 +63,6 @@ namespace McU.Data{
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = rememberMe ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials
             };
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -71,6 +71,13 @@ namespace McU.Data{
         }
 
 
+        public async Task<bool> UserExists(string username) {
+            if (await _context.User!.AnyAsync(x => x.Username == username)) {
+                return true;
+            }
+
+            return false;
+        }
 
     }
 }

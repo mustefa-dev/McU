@@ -3,6 +3,7 @@ global using McuApi.NET_7.Dtos;
 global using Microsoft.EntityFrameworkCore;
 global using McU.Data;
 using McU.Services.CharacterService;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 
@@ -46,7 +47,15 @@ builder.Services.AddSwaggerGen(option =>
 });builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:5117";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
