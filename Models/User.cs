@@ -7,12 +7,10 @@ public class User
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
-        public string Username { get; set; } = String.Empty;
-        public string Password { get; set; } = null!;
-        public string Role { get; set; }
+    public int Id { get; set; } 
+    public string Username { get; set; } = String.Empty;
+    public string Password { get; set; } = null!;
+    public string Role { get; set; } = "default";
 
-
-    public List<Character>? Characters { get; set; }
-    
+    public List<Character>? Characters { get; set; }    
 }

@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using McU.Dtos.User;
 using McU.Models;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,14 +15,14 @@ namespace McU.Data{
             _configuration = configuration;
         }
 
-        public async Task<(string? data, bool success, string? message)> Register(User user, string password) {
+        public async Task<(string? data, bool success, string? message)> Register(UserRegisterDto  user ) {
             var existingUser = await _context.User!.SingleOrDefaultAsync(x => x.Username == user.Username);
             if (existingUser != null) {
                 return (null, false, "Username already exists");
             }
 
-            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
-            await _context.User!.AddAsync(user);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            await _context.User!.AddAsync(new User { Username = user.Username, Password = user.Password, Role = user.Role });
             await _context.SaveChangesAsync();
 
             return (user.Username, true, null);

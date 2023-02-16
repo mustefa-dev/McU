@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace McU.Controllers;
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase{
@@ -13,11 +12,11 @@ public class AuthController : ControllerBase{
     public AuthController(IAuthRepository authRepo) {
         _authRepo = authRepo;
     }
-    
+    [Authorize(Roles = "Admin")]
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserLoginDto userLoginDto) {
+    public async Task<IActionResult> Register([FromBody] UserRegisterDto userLoginDto) {
         var (data, success, message) =
-            await _authRepo.Register(new User { Username = userLoginDto.Username }, userLoginDto.Password);
+            await _authRepo.Register(userLoginDto);
 
         if (success) {
             return Ok(data);
