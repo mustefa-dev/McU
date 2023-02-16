@@ -63,7 +63,11 @@ namespace McU.Data{
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                SigningCredentials = credentials
+                SigningCredentials = credentials,
+                Issuer = "Me",
+                Audience = "You",
+                Expires = DateTime.Now.AddDays(1),
+                TokenType = "Bearer",
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
