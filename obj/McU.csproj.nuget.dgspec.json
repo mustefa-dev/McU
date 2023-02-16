@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/home/mu/RiderProjects/McU/McU.csproj": {}
+    "/home/falah/RiderProjects/McU/McU.csproj": {}
   },
   "projects": {
-    "/home/mu/RiderProjects/McU/McU.csproj": {
+    "/home/falah/RiderProjects/McU/McU.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mu/RiderProjects/McU/McU.csproj",
+        "projectUniqueName": "/home/falah/RiderProjects/McU/McU.csproj",
         "projectName": "McU",
-        "projectPath": "/home/mu/RiderProjects/McU/McU.csproj",
-        "packagesPath": "/home/mu/.nuget/packages/",
-        "outputPath": "/home/mu/RiderProjects/McU/obj/",
+        "projectPath": "/home/falah/RiderProjects/McU/McU.csproj",
+        "packagesPath": "/home/falah/.nuget/packages/",
+        "outputPath": "/home/falah/RiderProjects/McU/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/mu/.nuget/NuGet/NuGet.Config"
+          "/home/falah/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -35,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
@@ -56,7 +56,7 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[6.0.14, )"
             },
             "Microsoft.AspNetCore.Identity": {
               "target": "Package",
@@ -75,6 +75,12 @@
               "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.2, )"
             },
@@ -119,8 +125,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -132,7 +137,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/falah/.dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
