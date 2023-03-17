@@ -1,16 +1,22 @@
 using AutoMapper;
 using McU.Dtos;
+using McU.Dtos.Skill;
+using McU.Dtos.Weapon;
 using McU.Models;
 
-namespace McU;
-
-public class AutoMapperProfile : Profile
+namespace McU
 {
-    public AutoMapperProfile()
+    public class AutoMapperProfile : Profile
     {
-        CreateMap<Character, GetCharacterDto>();
-        CreateMap<AddCharacterDto, Character>();
-        CreateMap<UpdateCharacterDto, Character>();
-        CreateMap<Character, GetCharacterDto>();
+        public AutoMapperProfile()
+        {
+            CreateMap<Character, GetCharacterDto>();
+            CreateMap<AddCharacterDto, Character>();
+            CreateMap<UpdateCharacterDto, Character>();
+            CreateMap<Character, GetCharacterDto>();
+            CreateMap<Weapon, GetWeaponDto>();
+            CreateMap<AddWeaponDto, Weapon>();
+            CreateMap<Skill, GetSkillDto>();
+        }
     }
 }

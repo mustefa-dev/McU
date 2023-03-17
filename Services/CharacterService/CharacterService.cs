@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using AutoMapper;
 using McU.Dtos;
+using McU.Dtos.Skill;
 using McU.Models;
 
 namespace McU.Services.CharacterService{
@@ -38,7 +40,7 @@ namespace McU.Services.CharacterService{
         public async Task<(string? data, bool success, string? message)> AddCharacters(AddCharacterDto newCharacter) {
             var dCharacter = _mapper.Map<Character>(newCharacter);
             await _context.Characters.AddAsync(dCharacter);
-            await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
             _mapper.Map<List<GetCharacterDto>>(_context.Characters);
             bool success = false;
             return (null, success, null);
@@ -73,6 +75,52 @@ namespace McU.Services.CharacterService{
             _context.Characters.Remove(character);
             await _context.SaveChangesAsync();
             return (null, success, message);
+        }
+
+        public async Task<(string data, bool success, string? message)> AddCharacterSkill(
+            AddCharacterSkillDto newCharacterSkill) {
+            var success = false;
+            string? data = null;
+            string? message = null;
+
+            // Find the character with the specified ID
+            var character = await _context.Characters.Include(c => c.Weapon).Include(c => c.Skills)
+                .FirstOrDefaultAsync(x => x.Id == newCharacterSkill.CharacterId);
+
+            if (character == null) {
+                message = "Character not found";
+                return (data, success, message);
+            }
+
+            // Find the skill with the specified ID
+            var skill = await _context.Skills.FindAsync(newCharacterSkill.SkillId);
+
+            if (skill == null) {
+                message = "Skill not found";
+                return (data, success, message);
+            }
+
+            // Check if the character already has the skill
+            if (character.Skills.Any(s => s.Id == skill.Id)) {
+                message = "Character already has this skill";
+                return (data, success, message);
+            }
+
+            // Add the skill to the character's list of skills
+            character.Skills.Add(skill);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            // Set success flag and return success message
+            success = true;
+            data = $"Skill '{skill.Name}' added to character '{character.Name}'";
+
+            return (data, success, message);
+        }
+
+        public Task<object> AttackWithWeapon(int characterId, int weaponId) {
+            throw new NotImplementedException();
         }
     }
 }

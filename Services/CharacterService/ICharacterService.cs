@@ -1,4 +1,6 @@
 using McU.Dtos;
+using McU.Dtos.Skill;
+using McU.Models;
 
 namespace McU.Services.CharacterService;
 
@@ -8,4 +10,6 @@ public interface ICharacterService{
     Task<(string? data, bool success, string? message)> AddCharacters(AddCharacterDto newCharacter);
     Task<(string? data, bool success, string? message)> UpdateCharacter(UpdateCharacterDto updateCharacterDto);
     Task<(string? data, bool success, string? message)> DeleteCharacter(int id);
+    Task<(string data, bool success, string? message)> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill);
+
 }

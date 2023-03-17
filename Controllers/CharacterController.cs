@@ -1,7 +1,10 @@
 using McU.Dtos;
+using McU.Dtos.Skill;
+using McU.Models;
 using McU.Services.CharacterService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace McU.Controllers;
 [Authorize]
@@ -48,4 +51,24 @@ public class CharacterController : ControllerBase {
         
         return (data, success, null);
     }
-}
+
+    [HttpPost]
+    [Authorize]
+    [Route("AddCharacterSkill")]
+    public async Task<ActionResult<GetCharacterDto>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+    {
+        var characterSkill = await _characterService.AddCharacterSkill(newCharacterSkill);
+        
+        if (!characterSkill.success)
+        {
+            return BadRequest(characterSkill.message);
+        }
+        
+        return Ok(characterSkill.data);
+    }
+    
+    }
+
+
+
+

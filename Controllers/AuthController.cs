@@ -12,6 +12,7 @@ public class AuthController : ControllerBase{
     public AuthController(IAuthRepository authRepo) {
         _authRepo = authRepo;
     }
+    [AllowAnonymous]
     [Authorize(Roles = "Admin")]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto userLoginDto) {
