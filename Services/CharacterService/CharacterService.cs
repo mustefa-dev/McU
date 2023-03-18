@@ -77,7 +77,7 @@ namespace McU.Services.CharacterService{
             return (null, success, message);
         }
 
-        public async Task<(string data, bool success, string? message)> AddCharacterSkill(
+        public async Task<(string? data, bool success, string message)> AddCharacterSkill(
             AddCharacterSkillDto newCharacterSkill) {
             var success = false;
             string? data = null;
@@ -116,7 +116,7 @@ namespace McU.Services.CharacterService{
             success = true;
             data = $"Skill '{skill.Name}' added to character '{character.Name}'";
 
-            return (data, success, message);
+            return (data, success, message)!;
         }
 
         public Task<object> AttackWithWeapon(int characterId, int weaponId) {

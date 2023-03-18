@@ -1,5 +1,6 @@
 using AutoMapper;
 using McU.Dtos;
+using McU.Dtos.Fight;
 using McU.Dtos.Skill;
 using McU.Dtos.Weapon;
 using McU.Models;
@@ -17,6 +18,7 @@ namespace McU
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<AddWeaponDto, Weapon>();
             CreateMap<Skill, GetSkillDto>();
+            CreateMap<Character, HighscoreDto>();
         }
     }
 }

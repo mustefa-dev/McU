@@ -5,10 +5,7 @@ global using McU.Data;
 using System.Text;
 using McU.Services.CharacterService;
 using McU.Services.WeaponService;
-using McU.Services.WeaponService.Attack;
-using McU.WeaponService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -49,7 +46,7 @@ builder.Services.AddSwaggerGen(option => {
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-builder.Services.AddScoped<IAttackService, AttackService>();
+builder.Services.AddScoped<IFightService, FightService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(cfg => {
@@ -59,7 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey =
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"])),
+                    Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)),
             ValidateIssuer = false,
             ValidateAudience = false
         };

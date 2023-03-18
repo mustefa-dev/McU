@@ -10,7 +10,7 @@ public class AttackService : IAttackService
         _context = context;
     }
     
-    public async Task<(string? Message, bool Success, AttackResultDto Data)> WeaponAttack(WeaponAttackDto request)
+    public async Task<(string? Message, bool Success, AttackResultDto? Data)> WeaponAttack(WeaponAttackDto request)
     {
         var response = new ServiceResponse<AttackResultDto>();
         bool rematchRequired = false;
