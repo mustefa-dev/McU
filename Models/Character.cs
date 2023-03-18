@@ -10,7 +10,12 @@ namespace McU.Models
         public int Strength { get; set; }
         public int Defense { get; set; }
         public int Intelligence { get; set; }
+        
         public List<Skill> Skills { get; set; }
         public Weapon Weapon { get; set; }
+        public bool IsAlive
+        {
+            get { return HitPoints > 0; }
+        }
     }
 }

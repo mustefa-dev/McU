@@ -5,6 +5,7 @@ global using McU.Data;
 using System.Text;
 using McU.Services.CharacterService;
 using McU.Services.WeaponService;
+using McU.Services.WeaponService.Attack;
 using McU.WeaponService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +49,7 @@ builder.Services.AddSwaggerGen(option => {
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-builder.Services.AddScoped<IWeaponService, WeaponService>();
+builder.Services.AddScoped<IAttackService, AttackService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(cfg => {

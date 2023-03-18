@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace McU.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230317061545_Weapon1")]
-    partial class Weapon1
+    [Migration("20230318000801_Weapon")]
+    partial class Weapon
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

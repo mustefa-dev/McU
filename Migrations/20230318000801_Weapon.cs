@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace McU.Migrations
 {
     /// <inheritdoc />
-    public partial class Weapon1 : Migration
+    public partial class Weapon : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
