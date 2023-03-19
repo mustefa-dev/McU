@@ -1,5 +1,6 @@
 using McU.Models;
-namespace McU.Dtos;
+
+namespace McU.Dtos.GetCharacter;
 
 public  class AddCharacterDto
 {

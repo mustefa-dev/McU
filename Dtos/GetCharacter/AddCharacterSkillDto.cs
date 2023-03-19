@@ -1,4 +1,4 @@
-namespace McU.Dtos;
+namespace McU.Dtos.GetCharacter;
 
 
 public class AddCharacterSkillDto

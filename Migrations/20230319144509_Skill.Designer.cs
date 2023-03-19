@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace McU.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230318000801_Weapon")]
-    partial class Weapon
+    [Migration("20230319144509_Skill")]
+    partial class Skill
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,13 @@ namespace McU.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Defeats")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Defense")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Fights")
                         .HasColumnType("integer");
 
                     b.Property<int>("HitPoints")
@@ -52,11 +58,59 @@ namespace McU.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Victories")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Characters");
+                });
+
+            modelBuilder.Entity("McU.Models.Skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CharacterId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Damage")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("Skills");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Damage = 30,
+                            Name = "Teleportation"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Damage = 20,
+                            Name = "Jarvis"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Damage = 50,
+                            Name = "Shield"
+                        });
                 });
 
             modelBuilder.Entity("McU.Models.User", b =>
@@ -110,56 +164,18 @@ namespace McU.Migrations
                     b.ToTable("Weapons");
                 });
 
-            modelBuilder.Entity("Skill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CharacterId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Damage")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CharacterId");
-
-                    b.ToTable("Skills");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Damage = 30,
-                            Name = "Teleportation"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Damage = 20,
-                            Name = "Jarvis"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Damage = 50,
-                            Name = "Shield"
-                        });
-                });
-
             modelBuilder.Entity("McU.Models.Character", b =>
                 {
                     b.HasOne("McU.Models.User", null)
                         .WithMany("Characters")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("McU.Models.Skill", b =>
+                {
+                    b.HasOne("McU.Models.Character", null)
+                        .WithMany("Skills")
+                        .HasForeignKey("CharacterId");
                 });
 
             modelBuilder.Entity("McU.Models.Weapon", b =>
@@ -171,13 +187,6 @@ namespace McU.Migrations
                         .IsRequired();
 
                     b.Navigation("Character");
-                });
-
-            modelBuilder.Entity("Skill", b =>
-                {
-                    b.HasOne("McU.Models.Character", null)
-                        .WithMany("Skills")
-                        .HasForeignKey("CharacterId");
                 });
 
             modelBuilder.Entity("McU.Models.Character", b =>
