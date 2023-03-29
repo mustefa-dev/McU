@@ -1,10 +1,11 @@
 global using McuApi.NET_7.Models;
-global using McuApi.NET_7.Dtos;
 global using Microsoft.EntityFrameworkCore;
 global using McU.Data;
 using System.Text;
 using McU.Services.CharacterService;
+using McU.Services.FightService;
 using McU.Services.WeaponService;
+using McU.Services.WeaponService.WeaponService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -47,6 +48,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IFightService, FightService>();
+builder.Services.AddScoped<IWeaponService, WeaponService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(cfg => {

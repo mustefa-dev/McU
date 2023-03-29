@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace McU.Migrations
 {
     /// <inheritdoc />
-    public partial class Weapon : Migration
+    public partial class Skill : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,9 @@ namespace McU.Migrations
                     Strength = table.Column<int>(type: "integer", nullable: false),
                     Defense = table.Column<int>(type: "integer", nullable: false),
                     Intelligence = table.Column<int>(type: "integer", nullable: false),
+                    Victories = table.Column<int>(type: "integer", nullable: false),
+                    Defeats = table.Column<int>(type: "integer", nullable: false),
+                    Fights = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

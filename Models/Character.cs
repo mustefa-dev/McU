@@ -18,5 +18,9 @@ namespace McU.Models
         {
             get { return HitPoints > 0; }
         }
+
+        public int Victories { get; set; }
+        public int Defeats { get; set; }
+        public int Fights { get; set; }
     }
 }

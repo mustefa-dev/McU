@@ -1,7 +1,6 @@
 using McU.Models;
-using McuApi.NET_7.Models;
 
-namespace McuApi.NET_7.Dtos;
+namespace McU.Dtos.GetCharacter;
 
 public class UpdateCharacterDto
 {

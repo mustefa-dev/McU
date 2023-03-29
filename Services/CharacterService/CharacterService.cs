@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using AutoMapper;
 using McU.Dtos;
+using McU.Dtos.GetCharacter;
 using McU.Dtos.Skill;
 using McU.Models;
 

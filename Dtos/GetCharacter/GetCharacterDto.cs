@@ -2,7 +2,7 @@ using McU.Dtos.Skill;
 using McU.Dtos.Weapon;
 using McU.Models;
 
-namespace McU.Dtos;
+namespace McU.Dtos.GetCharacter;
 
 public class GetCharacterDto
 {
@@ -14,5 +14,5 @@ public class GetCharacterDto
     public int Intelligence { get; set; }
     public McUclass Class { get; set; }
     public GetWeaponDto? Weapon { get; set; }
-    public List<GetSkillDto> Skills { get; set; } = new List<GetSkillDto>();
+    public List<GetSkillDto> Skills { get; set; } = null!;
 }
