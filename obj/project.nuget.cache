@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qH4OxutpZUNoXi/gLtV8yyL4f9do1KK7pvV95oNd2NTboqqQUYuI6xv6GMYTTGtZ+XBUwyAIw+yyt2Qen2ZQLw==",
+  "dgSpecHash": "oQc90LY5j2KVbBwFsf5F22k9jn55uqi+uayv2Cwi0fOJtQCaxhUSwg8R6lwwzXIuhklG9+/sICfUvcsWYj1a4A==",
   "success": true,
   "projectFilePath": "/home/mu/RiderProjects/McU/McU.csproj",
   "expectedPackageFiles": [
@@ -123,6 +123,7 @@
     "/home/mu/.nuget/packages/system.io.filesystem.primitives/4.3.0/system.io.filesystem.primitives.4.3.0.nupkg.sha512",
     "/home/mu/.nuget/packages/system.linq/4.3.0/system.linq.4.3.0.nupkg.sha512",
     "/home/mu/.nuget/packages/system.linq.expressions/4.3.0/system.linq.expressions.4.3.0.nupkg.sha512",
+    "/home/mu/.nuget/packages/system.linq.queryable/4.3.0/system.linq.queryable.4.3.0.nupkg.sha512",
     "/home/mu/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/home/mu/.nuget/packages/system.net.nameresolution/4.3.0/system.net.nameresolution.4.3.0.nupkg.sha512",
     "/home/mu/.nuget/packages/system.net.primitives/4.3.0/system.net.primitives.4.3.0.nupkg.sha512",

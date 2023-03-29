@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace McU.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230319144509_Skill")]
+    [Migration("20230325214209_Skill")]
     partial class Skill
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace McU.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("McU.Models.Character", b =>
+            modelBuilder.Entity("Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,7 +164,7 @@ namespace McU.Migrations
                     b.ToTable("Weapons");
                 });
 
-            modelBuilder.Entity("McU.Models.Character", b =>
+            modelBuilder.Entity("Character", b =>
                 {
                     b.HasOne("McU.Models.User", null)
                         .WithMany("Characters")
@@ -173,14 +173,14 @@ namespace McU.Migrations
 
             modelBuilder.Entity("McU.Models.Skill", b =>
                 {
-                    b.HasOne("McU.Models.Character", null)
+                    b.HasOne("Character", null)
                         .WithMany("Skills")
                         .HasForeignKey("CharacterId");
                 });
 
             modelBuilder.Entity("McU.Models.Weapon", b =>
                 {
-                    b.HasOne("McU.Models.Character", "Character")
+                    b.HasOne("Character", "Character")
                         .WithOne("Weapon")
                         .HasForeignKey("McU.Models.Weapon", "CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -189,7 +189,7 @@ namespace McU.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("McU.Models.Character", b =>
+            modelBuilder.Entity("Character", b =>
                 {
                     b.Navigation("Skills");
 

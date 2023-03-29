@@ -15,11 +15,12 @@ namespace McU
             CreateMap<Character, GetCharacterDto>();
             CreateMap<AddCharacterDto, Character>();
             CreateMap<UpdateCharacterDto, Character>();
-            CreateMap<Character, GetCharacterDto>();
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<AddWeaponDto, Weapon>();
             CreateMap<Skill, GetSkillDto>();
             CreateMap<Character, HighscoreDto>();
+            CreateMap<Character, AddSkillDto>();
+            CreateMap<AddSkillDto, Skill>();
         }
     }
 }
