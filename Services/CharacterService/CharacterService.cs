@@ -23,6 +23,8 @@ namespace McU.Services.CharacterService{
                 .Include(c => c.Weapon)
                 .Include(c => c.Skills)
                 .FirstOrDefaultAsync(c => c.Id == id);
+
+            int a = 0;
             return _mapper.Map<GetCharacterDto>(dbCharacter);
         }
 
