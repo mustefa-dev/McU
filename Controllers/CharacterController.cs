@@ -34,7 +34,7 @@ public class CharacterController : ControllerBase{
         return Ok(await _characterService.UpdateCharacter(updateCharacter));
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<OkObjectResult> DeleteCharacter(int id) {
         return Ok(await _characterService.DeleteCharacter(id));
     }

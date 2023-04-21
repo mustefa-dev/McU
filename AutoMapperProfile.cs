@@ -2,7 +2,6 @@ using AutoMapper;
 using McU.Dtos;
 using McU.Dtos.Fight;
 using McU.Dtos.GetCharacter;
-using McU.Dtos.Skill;
 using McU.Dtos.Weapon;
 using McU.Models;
 

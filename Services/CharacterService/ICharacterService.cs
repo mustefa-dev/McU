@@ -1,6 +1,5 @@
 using McU.Dtos;
 using McU.Dtos.GetCharacter;
-using McU.Dtos.Skill;
 using McU.Models;
 
 namespace McU.Services.CharacterService;

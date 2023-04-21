@@ -1,7 +1,6 @@
 using McU.Dtos;
 using McU.Models;
 using AutoMapper;
-using McU.Dtos.Skill;
 
 namespace McU.Services
 {

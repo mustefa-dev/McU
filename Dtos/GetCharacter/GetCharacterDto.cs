@@ -1,4 +1,3 @@
-using McU.Dtos.Skill;
 using McU.Dtos.Weapon;
 using McU.Models;
 
