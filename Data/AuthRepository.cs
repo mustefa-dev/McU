@@ -15,22 +15,24 @@ namespace McU.Data{
             _configuration = configuration;
         }
 
-        public async Task<(string? data, bool success, string? message)> Register(UserRegisterDto  user ) {
-            var existingUser = await _context.User!.SingleOrDefaultAsync(x => x.Username == user.Username);
+        public async Task<(UserRegisterDto user, string? error)> Register(UserRegisterDto user) {
+            var existingUser = await _context.User.SingleOrDefaultAsync(x => x.Username == user.Username);
             if (existingUser != null) {
-                return (null, false, "Username already exists");
+                return (null, "Username already exists")!;
             }
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            await _context.User!.AddAsync(new User { Username = user.Username, Password = user.Password, Role = user.Role });
+            await _context.User.AddAsync(new User
+                { Username = user.Username, Password = user.Password, Role = user.Role });
             await _context.SaveChangesAsync();
-
-            return (user.Username, true, null);
+            var  token = GenerateJwtToken(new User
+                {Username = user.Username, Password = user.Password, Role = user.Role});
+            return (new UserRegisterDto { Username = user.Username,  Role = user.Role }, null);
         }
 
         [Obsolete("Obsolete")]
         public async Task<(string? data, bool success, string? message)> Login(string username, string password) {
-            var user = await _context.User!.SingleOrDefaultAsync(x => x.Username == username);
+            var user = await _context.User.SingleOrDefaultAsync(x => x.Username == username);
             if (user == null) {
                 return (null, false, "User not found");
             }
@@ -40,12 +42,10 @@ namespace McU.Data{
             }
 
             var token = GenerateJwtToken(user);
-
             return (token, true, null);
         }
 
-        public string GenerateJwtToken(User user)
-        {
+        public string GenerateJwtToken(User user) {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -53,12 +53,12 @@ namespace McU.Data{
                 new Claim(ClaimTypes.Role, user.Role)
             };
             var key = Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!);
-            if (key.Length * 8 < 128)
-            {
+            if (key.Length * 8 < 128) {
                 var newKey = new byte[16];
                 Array.Copy(key, newKey, Math.Min(key.Length, newKey.Length));
                 key = newKey;
             }
+
             var signingKey = new SymmetricSecurityKey(key);
             var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -74,15 +74,5 @@ namespace McU.Data{
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
-
-        public async Task<bool> UserExists(string username) {
-            if (await _context.User!.AnyAsync(x => x.Username == username)) {
-                return true;
-            }
-
-            return false;
-        }
-
     }
 }

@@ -16,14 +16,10 @@ public class AuthController : ControllerBase{
     [Authorize(Roles = "Admin")]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto userLoginDto) {
-        var (data, success, message) =
-            await _authRepo.Register(userLoginDto);
-
-        if (success) {
-            return Ok(data);
-        }
-
-        return BadRequest(message); 
+        var result = await _authRepo.Register(userLoginDto); 
+        if (result.error != null) return BadRequest(result.error);
+        return Ok(result.user);
+        
     }
 
     [AllowAnonymous]

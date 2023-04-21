@@ -1,6 +1,8 @@
+using McU.Dtos;
 using McU.Dtos.Fight;
 using McU.Services.FightService;
 using Microsoft.AspNetCore.Mvc;
+using HighScoreDto = McU.Dtos.HighScoreDto;
 
 namespace McU.Controllers
 {
@@ -33,7 +35,7 @@ namespace McU.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<HighscoreDto>>>> GetHighscore()
+        public async Task<ActionResult<ServiceResponse<List<HighScoreDto>>>> GetHighscore()
         {
             return Ok(await _fightService.GetHighscore());
         }

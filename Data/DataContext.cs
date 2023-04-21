@@ -22,5 +22,6 @@ namespace McU.Data
         public DbSet<User> User => Set<User>();
         public DbSet<Weapon> Weapons => Set<Weapon>();
         public DbSet<Skill> Skills => Set<Skill>();
+        public object CharacterIds { get; set; } = null!;
     }
 }

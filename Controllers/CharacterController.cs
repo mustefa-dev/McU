@@ -1,17 +1,13 @@
 using McU.Dtos;
 using McU.Dtos.GetCharacter;
-using McU.Dtos.Skill;
-using McU.Models;
 using McU.Services.CharacterService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace McU.Controllers;
-[Authorize]
+
 [ApiController]
 [Route("api/[controller]")]
-public class CharacterController : ControllerBase {
+public class CharacterController : ControllerBase{
     private readonly ICharacterService _characterService;
 
     public CharacterController(ICharacterService characterService) {
@@ -24,7 +20,7 @@ public class CharacterController : ControllerBase {
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingleCharacter(int id) {
+    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetCharacterById(int id) {
         return Ok(await _characterService.GetCharacterById(id));
     }
 
@@ -34,42 +30,17 @@ public class CharacterController : ControllerBase {
     }
 
     [HttpPut("update")]
-    public async Task<(string? data, bool success, string? message)> UpdateCharacter(
-        UpdateCharacterDto updateCharacter) {
-        
-      Ok(await _characterService.UpdateCharacter(updateCharacter));
-
-      string? data = null;
-      bool success = false;
-      return (data, success, null);
+    public async Task<OkObjectResult> UpdateCharacter(UpdateCharacterDto updateCharacter) {
+        return Ok(await _characterService.UpdateCharacter(updateCharacter));
     }
 
-    [HttpDelete("{id}")]
-    public async Task<(string? data, bool success, string? message)> DeleteCharacter(int id) {
-        bool success = false;
-        string? data = null;
-        Ok(await _characterService.DeleteCharacter(id));
-        
-        return (data, success, null);
+    [HttpDelete("{id:int}")]
+    public async Task<OkObjectResult> DeleteCharacter(int id) {
+        return Ok(await _characterService.DeleteCharacter(id));
     }
 
-    [HttpPost]
-    [Authorize]
-    [Route("AddCharacterSkill")]
-    public async Task<ActionResult<GetCharacterDto>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
-    {
-        var characterSkill = await _characterService.AddCharacterSkill(newCharacterSkill);
-        
-        if (!characterSkill.success)
-        {
-            return BadRequest(characterSkill.message);
-        }
-        
-        return Ok(characterSkill.data);
+    [HttpPost("AddCharacterSkill")]
+    public async Task<OkObjectResult> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill) {
+        return Ok (await _characterService.AddCharacterSkill(newCharacterSkill));
     }
-    
-    }
-
-
-
-
+}

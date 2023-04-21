@@ -1,11 +1,11 @@
-using McU.Dtos;
 using McU.Dtos.GetCharacter;
 using McU.Dtos.Weapon;
 
-namespace McU.Services.WeaponService.WeaponService
+namespace McU.Services.WeaponService
 {
     public interface IWeaponService
     {
-        Task<ServiceResponse<GetCharacterDto>> UpdateWeapon(UpdateWeaponDto updateWeaponDto);
+        Task<GetCharacterDto> UpdateWeapon(UpdateWeaponDto updateWeaponDto);
+
     }
 }

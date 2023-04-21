@@ -7,4 +7,6 @@ public class AttackResultDto
     public int AttackerHp { get; set; }
     public int OpponentHp { get; set; }
     public int Damage { get; set; }
+    public string Winner { get; set; } = null!;
+    public string Message { get; set; }
 }
